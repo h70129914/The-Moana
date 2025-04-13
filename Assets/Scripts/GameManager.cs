@@ -59,6 +59,9 @@ public class GameManager : MonoBehaviour
 
     public void NameSubmit()
     {
+        if (string.IsNullOrEmpty(CurrentPlayerName))
+            return;
+
         main.ShowNext();
     }
 
@@ -123,7 +126,6 @@ public class GameManager : MonoBehaviour
 
     void EndGame()
     {
-        Debug.Log("Game ended");
         gameStarted = false;
 
         timerText.text = "0";
@@ -133,10 +135,15 @@ public class GameManager : MonoBehaviour
             scoreText.text = $"{userScores[CurrentPlayerName]}";
         }
 
+        main.ShowNext();
+        FindFirstObjectByType<DrumSpawner>().StopSpawningAndClear();
+        FindFirstObjectByType<LeaderboardController>().ShowLeaderboard();
     }
 
     public bool IsGameStarted()
     {
         return gameStarted;
     }
+
+    public int GetFinalScore() => userScores[CurrentPlayerName];
 }

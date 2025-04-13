@@ -6,7 +6,7 @@ using System.Linq;
 public class LeaderboardDisplay : MonoBehaviour
 {
     public TextMeshProUGUI leaderboardText;
-    public int usersToShow = 0; // New field to specify the number of users to show
+    public int usersToShow = 0;
 
     void Start()
     {

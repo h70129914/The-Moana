@@ -8,13 +8,15 @@ public class DrumSpawner : MonoBehaviour
     public Drum drumPrefab;
     public Transform[] spawnPositions;
     public AudioSource musicSource;
-    
+
     public float spawnY = 10f;
     public float fallSpeed = 2;
     public float perfectY;
     public float totalGameDuration { get; set; }
 
     public List<float> drumKeyframes;
+
+    private Coroutine spawnLoopCoroutine;
 
     private void Start()
     {
@@ -23,7 +25,7 @@ public class DrumSpawner : MonoBehaviour
 
     public void StartSpawning()
     {
-        StartCoroutine(SpawnLoop());
+        spawnLoopCoroutine = StartCoroutine(SpawnLoop());
     }
 
     private IEnumerator SpawnLoop()
@@ -38,8 +40,6 @@ public class DrumSpawner : MonoBehaviour
         while (elapsedTime < totalGameDuration)
         {
             float cycleStartTime = Time.time;
-
-            Debug.Log($"Starting loop at {elapsedTime}s, music starts in {delayBeforeMusic}s");
 
             foreach (float hitTime in drumKeyframes)
             {
@@ -59,9 +59,9 @@ public class DrumSpawner : MonoBehaviour
             elapsedTime += waitTime;
         }
 
+        musicSource.Stop();
         Debug.Log("Game time is over. Stopping spawning.");
     }
-
 
     private float CalculateFallDuration()
     {
@@ -99,5 +99,27 @@ public class DrumSpawner : MonoBehaviour
         Drum drum = Instantiate(drumPrefab, spawnPosition, Quaternion.identity);
         drum.Initialize(fallSpeed, perfectY, columnIndex);
         Debug.Log($"Drum spawned in column {columnIndex} at position {spawnPosition}.");
+    }
+
+    public void StopSpawningAndClear()
+    {
+        if (spawnLoopCoroutine != null)
+        {
+            StopCoroutine(spawnLoopCoroutine);
+            spawnLoopCoroutine = null;
+        }
+
+        Drum[] drums = FindObjectsOfType<Drum>();
+        foreach (Drum drum in drums)
+        {
+            Destroy(drum.gameObject);
+        }
+
+        if (musicSource.isPlaying)
+        {
+            musicSource.Stop();
+        }
+
+        Debug.Log("Stopped spawning, destroyed all drums, and stopped the music.");
     }
 }
