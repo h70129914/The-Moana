@@ -18,12 +18,21 @@ public class GameManager : MonoBehaviour
     public UIFlowController main;
     public float gameTime = 60f;
     private float currentTime;
-    private bool gameStarted = false;
 
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI countdownText;
 
+    public enum GameState
+    {
+        Idle,
+        DrumToStart,
+        GetReady,
+        Playing,
+        End
+    }
+
+    public GameState CurrentGameState { get; private set; } = GameState.Idle;
 
     void Awake()
     {
@@ -41,12 +50,11 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.Space) && !gameStarted)
+        if (Input.GetKeyDown(KeyCode.Space) && CurrentGameState == GameState.DrumToStart)
         {
             StartCoroutine(StartGame());
         }
-        if (!gameStarted) return;
+        if (CurrentGameState != GameState.Playing) return;
 
         currentTime -= Time.deltaTime;
         timerText.text = $"{Mathf.CeilToInt(currentTime)}";
@@ -59,18 +67,25 @@ public class GameManager : MonoBehaviour
 
     public void NameSubmit()
     {
+        if (CurrentGameState != GameState.Idle)
+        {
+            return;
+        }
         if (string.IsNullOrEmpty(CurrentPlayerName))
             return;
 
         main.ShowNext();
+        CurrentGameState = GameState.DrumToStart;
     }
 
     public IEnumerator StartGame()
     {
-        gameStarted = true;
+        CurrentGameState = GameState.GetReady;
         main.ShowNext();
 
         yield return StartCoroutine(Countdown());
+
+        CurrentGameState = GameState.Playing;
 
         currentTime = gameTime;
 
@@ -126,7 +141,7 @@ public class GameManager : MonoBehaviour
 
     void EndGame()
     {
-        gameStarted = false;
+        CurrentGameState = GameState.End;
 
         timerText.text = "0";
 
@@ -142,7 +157,7 @@ public class GameManager : MonoBehaviour
 
     public bool IsGameStarted()
     {
-        return gameStarted;
+        return CurrentGameState == GameState.Playing;
     }
 
     public int GetFinalScore() => userScores[CurrentPlayerName];
