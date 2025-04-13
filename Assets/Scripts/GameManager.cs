@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI countdownText;
 
+    [SerializeField] private float endGameWaitTime = 5f; 
+
     public enum GameState
     {
         Idle,
@@ -153,6 +155,15 @@ public class GameManager : MonoBehaviour
         main.ShowNext();
         FindFirstObjectByType<DrumSpawner>().StopSpawningAndClear();
         FindFirstObjectByType<LeaderboardController>().ShowLeaderboard();
+
+        StartCoroutine(EndGameRoutine());
+    }
+
+    private IEnumerator EndGameRoutine()
+    {
+        yield return new WaitForSeconds(endGameWaitTime);
+        main.JumpTo(0);
+        CurrentGameState = GameState.Idle;
     }
 
     public bool IsGameStarted()
