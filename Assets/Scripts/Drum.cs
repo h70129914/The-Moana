@@ -82,7 +82,11 @@ public class Drum : MonoBehaviour
                 });
             });
 
-            perfect.DOShakePosition(0.5f, 0.5f, 10, 90, false, true);
+            Vector3 originalPosition = perfect.position;
+            perfect.DOShakePosition(0.5f, 0.5f, 10, 90, false, true).OnComplete(() =>
+            {
+                perfect.position = originalPosition;
+            });
         }
     }
 

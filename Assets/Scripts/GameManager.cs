@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L))
         {
-            DeleteScores();
+            MoveScoresFile();
         }
     }
 
@@ -150,7 +150,7 @@ public class GameManager : MonoBehaviour
         }
 
         OnScoreUpdated?.Invoke();
-        SaveScores();
+        
     }
 
     public void EndGame(float waitBeforeEnd)
@@ -165,6 +165,7 @@ public class GameManager : MonoBehaviour
         if (scoreText != null && userScores.ContainsKey(CurrentPlayerName))
         {
             scoreText.text = $"{userScores[CurrentPlayerName]}";
+            SaveScores();
         }
 
         main.ShowNext();
@@ -187,11 +188,12 @@ public class GameManager : MonoBehaviour
         return CurrentGameState == GameState.Playing;
     }
 
-    public int GetFinalScore() => userScores[CurrentPlayerName];
+    public int GetFinalScore() => userScores.ContainsKey(CurrentPlayerName) ? userScores[CurrentPlayerName] : 0;
 
     private void SaveScores()
     {
         string json = JsonConvert.SerializeObject(userScores);
+        Debug.Log(Path.Combine(Application.persistentDataPath, ScoresFileName));
         File.WriteAllText(Path.Combine(Application.persistentDataPath, ScoresFileName), json);
     }
 
@@ -205,13 +207,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void DeleteScores()
+    private void MoveScoresFile()
     {
         string filePath = Path.Combine(Application.persistentDataPath, ScoresFileName);
         if (File.Exists(filePath))
         {
-            File.Delete(filePath);
+            string backupFilePath = filePath + ".bak_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss");
+            File.Move(filePath, backupFilePath);
+            Debug.Log($"Scores file moved to {backupFilePath}");
             userScores.Clear();
+            OnScoreUpdated?.Invoke();
         }
     }
 }
