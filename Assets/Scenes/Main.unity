@@ -217,6 +217,7 @@ GameObject:
   - component: {fileID: 17442062}
   - component: {fileID: 17442064}
   - component: {fileID: 17442063}
+  - component: {fileID: 17442065}
   m_Layer: 5
   m_Name: Ready Screen
   m_TagString: Untagged
@@ -281,6 +282,44 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 17442061}
   m_CullTransparentMesh: 1
+--- !u!114 &17442065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17442061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 7897062291764150298
+  references:
+    version: 2
+    RefIds:
+    - rid: 7897062291764150298
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 17442063}
+        m_TrackedProperties:
+          items:
+          - rid: 7897062291764150299
+        m_UpdateType: 0
+    - rid: 7897062291764150299
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_Sprite
+        m_TypeString: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: en
+          value: {fileID: 21300000, guid: 5393e32cf139b9044ace9586c20331b4, type: 3}
+        - localeIdentifier:
+            m_Code: ar
+          value: {fileID: 21300000, guid: d1b20e2fe671ddd458139c7e0650b5b6, type: 3}
 --- !u!1 &62786566
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,13 +815,14 @@ GameObject:
   - component: {fileID: 622327678}
   - component: {fileID: 622327677}
   - component: {fileID: 622327679}
+  - component: {fileID: 622327680}
   m_Layer: 5
   m_Name: Leaderboard Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &622327675
 RectTransform:
   m_ObjectHideFlags: 0
@@ -796,8 +836,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8113433146904042581}
-  - {fileID: 1908692613}
   - {fileID: 119151535}
+  - {fileID: 1908692613}
   m_Father: {fileID: 1787324731}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -858,6 +898,44 @@ MonoBehaviour:
   leaderboardTextPrefab: {fileID: 4478813069143443368, guid: d73f427e372023e4db4b33608ee633dc, type: 3}
   container: {fileID: 8113433146904042581}
   finalScoreText: {fileID: 119151536}
+--- !u!114 &622327680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622327674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 7897062292099170308
+  references:
+    version: 2
+    RefIds:
+    - rid: 7897062292099170308
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 622327677}
+        m_TrackedProperties:
+          items:
+          - rid: 7897062292099170309
+        m_UpdateType: 0
+    - rid: 7897062292099170309
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_Sprite
+        m_TypeString: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: en
+          value: {fileID: 21300000, guid: 5e4adec80d96ac84d8ecf6a6308a788f, type: 3}
+        - localeIdentifier:
+            m_Code: ar
+          value: {fileID: 21300000, guid: 50f4514d583c81e42904339e1c9a7f02, type: 3}
 --- !u!1 &640701563
 GameObject:
   m_ObjectHideFlags: 0
@@ -1397,7 +1475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.050980393}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5764706}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1406,7 +1484,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 111c8098d07f75f47be99456363ea657, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -2344,6 +2422,7 @@ GameObject:
   - component: {fileID: 1299336934}
   - component: {fileID: 1299336936}
   - component: {fileID: 1299336935}
+  - component: {fileID: 1299336937}
   m_Layer: 5
   m_Name: Tutorial Screen
   m_TagString: Untagged
@@ -2409,6 +2488,44 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1299336933}
   m_CullTransparentMesh: 1
+--- !u!114 &1299336937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299336933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 7897062291764150300
+  references:
+    version: 2
+    RefIds:
+    - rid: 7897062291764150300
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 1299336935}
+        m_TrackedProperties:
+          items:
+          - rid: 7897062291764150301
+        m_UpdateType: 0
+    - rid: 7897062291764150301
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_Sprite
+        m_TypeString: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: en
+          value: {fileID: 21300000, guid: 613b39304e6fbda498145dbeeb6ce8f5, type: 3}
+        - localeIdentifier:
+            m_Code: ar
+          value: {fileID: 21300000, guid: 242952c6c755d3d46b46e8fcd6ec43ae, type: 3}
 --- !u!1001 &1325741068
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3224,13 +3341,14 @@ GameObject:
   - component: {fileID: 1821764255}
   - component: {fileID: 1821764257}
   - component: {fileID: 1821764258}
+  - component: {fileID: 1821764259}
   m_Layer: 5
   m_Name: Gameplay Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1821764255
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3245,10 +3363,10 @@ RectTransform:
   m_Children:
   - {fileID: 1234462476}
   - {fileID: 1978262747}
-  - {fileID: 992718476}
   - {fileID: 1863226425}
   - {fileID: 527964403}
   - {fileID: 772316871}
+  - {fileID: 992718476}
   m_Father: {fileID: 1787324731}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3284,7 +3402,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c541d4c80e7f0944ba75c634fcd5a5d0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c11aeb20c4ae7b4a9ff22fa097e2007, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3294,6 +3412,44 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1821764259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821764254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 7897062292099170304
+  references:
+    version: 2
+    RefIds:
+    - rid: 7897062292099170304
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 1821764258}
+        m_TrackedProperties:
+          items:
+          - rid: 7897062292099170305
+        m_UpdateType: 0
+    - rid: 7897062292099170305
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_Sprite
+        m_TypeString: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: en
+          value: {fileID: 21300000, guid: 2c11aeb20c4ae7b4a9ff22fa097e2007, type: 3}
+        - localeIdentifier:
+            m_Code: ar
+          value: {fileID: 21300000, guid: b0ec30232a6fa624caff7f8d4abf13cc, type: 3}
 --- !u!224 &1863226425 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8113433146837941810, guid: 8306c5613db79f448b17205994b937cf, type: 3}
