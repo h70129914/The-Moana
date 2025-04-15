@@ -70,13 +70,13 @@ public class Drum : MonoBehaviour
         if (effect != null)
         {
             Vector3 randomOffset = new(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
-            Quaternion randomRotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
+            Quaternion randomRotation = Quaternion.Euler(0, 0, 30);
 
             GameObject instantiatedEffect = Instantiate(effect, perfect.position + randomOffset, randomRotation);
             instantiatedEffect.transform.localScale = Vector3.zero;
-            instantiatedEffect.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
+            instantiatedEffect.transform.DOScale(0.3f, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
             {
-                instantiatedEffect.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBounce).OnComplete(() =>
+                instantiatedEffect.transform.DOScale(0.4f, 0.5f).SetEase(Ease.InBounce).OnComplete(() =>
                 {
                     Destroy(instantiatedEffect);
                 });
