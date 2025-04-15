@@ -14,7 +14,11 @@ public class DrumSpawner : MonoBehaviour
     public float perfectY;
     public float totalGameDuration { get; set; }
 
-    public List<float> drumKeyframes;
+    public List<float> drumKeyframes = new() {
+        0.4596f, 2.5580f, 2.8895f, 3.4343f, 4.8074f, 5.2611f, 8.4830f, 8.9325f, 9.3691f, 12.0119f,
+        12.3638f, 13.4353f, 14.5942f, 14.9065f, 15.4695f, 15.7918f, 17.5539f, 17.9681f, 19.0787f,
+        19.5915f, 20.2421f, 21.5190f, 22.2128f, 22.9359f, 23.2482f, 23.6972f, 24.1599f, 24.4772f,
+        27.0675f, 28.6186f };
 
     private Coroutine spawnLoopCoroutine;
 

@@ -11,6 +11,7 @@ public class LeaderboardDisplay : MonoBehaviour
     void Start()
     {
         GameManager.Instance.OnScoreUpdated += UpdateLeaderboard;
+        UpdateLeaderboard();
     }
 
     void OnDestroy()
@@ -18,20 +19,23 @@ public class LeaderboardDisplay : MonoBehaviour
         GameManager.Instance.OnScoreUpdated -= UpdateLeaderboard;
     }
 
-    void UpdateLeaderboard()
+    internal void UpdateLeaderboard()
     {
         Dictionary<string, int> scores = GameManager.Instance.userScores;
         leaderboardText.text = string.Empty;
-        var orderedScores = scores.OrderByDescending(s => s.Value);
+        var orderedScores = scores.OrderByDescending(s => s.Value).ToList();
 
-        if (usersToShow > 0)
+        for (int i = 0; i < usersToShow; i++)
         {
-            orderedScores = orderedScores.Take(usersToShow).ToDictionary(pair => pair.Key, pair => pair.Value).OrderByDescending(s => s.Value);
-        }
-
-        foreach (var score in orderedScores)
-        {
-            leaderboardText.text += $"{score.Key}: {score.Value}\n";
+            if (i < orderedScores.Count)
+            {
+                var score = orderedScores[i];
+                leaderboardText.text += $"{i + 1}. {score.Key}\n";
+            }
+            else
+            {
+                leaderboardText.text += $"{i + 1}.\n";
+            }
         }
     }
 }

@@ -1,9 +1,10 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,7 +25,9 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI countdownText;
 
-    [SerializeField] private float endGameWaitTime = 5f; 
+    [SerializeField] private float endGameWaitTime = 5f;
+
+    private const string ScoresFileName = "userScores.json";
 
     public enum GameState
     {
@@ -46,14 +49,15 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
 
         currentTime = gameTime;
+
+        LoadScores();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && CurrentGameState == GameState.DrumToStart)
+        if (Input.anyKeyDown && CurrentGameState == GameState.DrumToStart)
         {
             StartCoroutine(StartGame());
         }
@@ -65,6 +69,11 @@ public class GameManager : MonoBehaviour
         if (currentTime <= 0)
         {
             EndGame(endGameWaitTime);
+        }
+
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L))
+        {
+            DeleteScores();
         }
     }
 
@@ -141,6 +150,7 @@ public class GameManager : MonoBehaviour
         }
 
         OnScoreUpdated?.Invoke();
+        SaveScores();
     }
 
     public void EndGame(float waitBeforeEnd)
@@ -178,4 +188,30 @@ public class GameManager : MonoBehaviour
     }
 
     public int GetFinalScore() => userScores[CurrentPlayerName];
+
+    private void SaveScores()
+    {
+        string json = JsonConvert.SerializeObject(userScores);
+        File.WriteAllText(Path.Combine(Application.persistentDataPath, ScoresFileName), json);
+    }
+
+    private void LoadScores()
+    {
+        string filePath = Path.Combine(Application.persistentDataPath, ScoresFileName);
+        if (File.Exists(filePath))
+        {
+            string json = File.ReadAllText(filePath);
+            userScores = JsonConvert.DeserializeObject<Dictionary<string, int>>(json);
+        }
+    }
+
+    private void DeleteScores()
+    {
+        string filePath = Path.Combine(Application.persistentDataPath, ScoresFileName);
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+            userScores.Clear();
+        }
+    }
 }

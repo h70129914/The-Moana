@@ -29,15 +29,14 @@ public class Drum : MonoBehaviour
     {
         if (!active) return;
 
-        transform.position += Vector3.down * speed * Time.deltaTime;
+        transform.position += speed * Time.deltaTime * Vector3.down;
 
-        //if (transform.position.y <= targetY)
-        //{
-        //    transform.position = new Vector3(transform.position.x, targetY, transform.position.z);
-        //    active = false;
-        //    // Reached destination - maybe notify or destroy
-        //    Destroy(gameObject);
-        //}
+        if (transform.position.y <= -6)
+        {
+            active = false;
+            DrumManager.Instance.PopDrum(ColumnIndex);
+            Destroy(gameObject);
+        }
     }
 
     public void TryCatch()
