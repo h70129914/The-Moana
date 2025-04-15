@@ -24,7 +24,6 @@ public class DrumManager : MonoBehaviour
 
     public void RemoveDrum(Drum drum)
     {
-        // This is optional, used in case we need to remove from mid-queue
         if (columnDrums.ContainsKey(drum.ColumnIndex))
         {
             var newQueue = new Queue<Drum>();

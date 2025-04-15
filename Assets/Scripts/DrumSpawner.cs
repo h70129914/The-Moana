@@ -39,8 +39,6 @@ public class DrumSpawner : MonoBehaviour
 
         while (elapsedTime < totalGameDuration)
         {
-            float cycleStartTime = Time.time;
-
             foreach (float hitTime in drumKeyframes)
             {
                 int randomColumn = Random.Range(0, spawnPositions.Length);
@@ -49,10 +47,8 @@ public class DrumSpawner : MonoBehaviour
                 StartCoroutine(SpawnDrumAfterDelay(spawnTime, randomColumn));
             }
 
-            // Start music after delay
             StartCoroutine(StartMusicAfterDelay(delayBeforeMusic));
 
-            // Wait until loop is done
             float waitTime = loopDuration + delayBeforeMusic;
             yield return new WaitForSeconds(waitTime);
 
