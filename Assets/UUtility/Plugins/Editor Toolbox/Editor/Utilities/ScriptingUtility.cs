@@ -2,6 +2,7 @@
 using System.Linq;
 
 using UnityEditor;
+using UnityEditor.Build;
 
 namespace Toolbox.Editor
 {
@@ -9,14 +10,14 @@ namespace Toolbox.Editor
     {
         public static List<string> GetDefines()
         {
-            var defines = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
+            var defines = PlayerSettings.GetScriptingDefineSymbols(NamedBuildTarget.FromBuildTargetGroup(EditorUserBuildSettings.selectedBuildTargetGroup));
             return defines.Split(';').ToList();
         }
 
         public static void SetDefines(List<string> definesList)
         {
             var defines = string.Join(";", definesList.ToArray());
-            PlayerSettings.SetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup, defines);
+            PlayerSettings.SetScriptingDefineSymbols(NamedBuildTarget.FromBuildTargetGroup(EditorUserBuildSettings.selectedBuildTargetGroup), defines);
         }
 
         public static void AppendDefine(string define)

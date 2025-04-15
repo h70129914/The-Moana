@@ -2,6 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor.Presets;
 using UnityEngine.EventSystems;
 using UnityEditor.SceneManagement;
 
@@ -154,7 +155,7 @@ namespace RTLTMPro
         [MenuItem("GameObject/UI/Button - RTLTMP", false, 2005)]
         public static void CreateButton(MenuCommand command)
         {
-            var canvas = GetParentForNewObject().transform;
+            var canvas = GetOrCreateCanvasGameObject().transform;
             var buttonGo = new GameObject("Button", typeof(RectTransform), typeof(Image), typeof(Button));
             var buttonTransform = buttonGo.GetComponent<RectTransform>();
             var buttonImage = buttonGo.GetComponent<Image>();
@@ -321,21 +322,9 @@ namespace RTLTMPro
             canvas = FindObjectOfType(typeof(Canvas)) as Canvas;
             if (canvas != null && canvas.gameObject.activeInHierarchy)
                 return canvas.gameObject;
-            
+
             // No canvas in the scene at all? Then create a new one.
             return CreateNewUI();
-        }
-
-        public static GameObject GetParentForNewObject()
-        {
-            var activeGo = Selection.activeGameObject;
-            
-            //Combine the result of the Null check and if the component Canvas exists or not in the parent.
-            var hasCanvasInParent = activeGo != null && activeGo.GetComponentInParent<Canvas>() != null;
-            if (hasCanvasInParent)
-                return activeGo;
-
-            return GetOrCreateCanvasGameObject();
         }
     }
 }

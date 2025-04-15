@@ -9,6 +9,18 @@ namespace UTool.Utility
 {
     public static partial class UUtility
     {
+        public static Texture2D ToTexture2D(this RenderTexture renderTexture)
+        {
+            Texture2D tex = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.ARGB32, false);
+            RenderTexture.active = renderTexture;
+            tex.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+            tex.Apply();
+            return tex;
+        }
+
+        //public static Vector2Int GetSize(this Texture2D texture) => new Vector2Int(texture.width, texture.height);
+        public static Vector2Int GetSize(this Texture texture) => new Vector2Int(texture.width, texture.height);
+
         public static Sprite CreateSprite(this Texture2D texture)
             => Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
 

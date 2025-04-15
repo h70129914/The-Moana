@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24acaf78028e86d47b43efeec5f093ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 1.4.2
+  version: 1.5.5
   _projectName: 
   avoidTouchState: 0
   activateMultiDisplay: 0
@@ -61,10 +61,10 @@ MonoBehaviour:
   toolPanelTE: {fileID: 1704479496189303046}
   hiddenButtonPanel: {fileID: 8476364117339891056}
   debugConsoleCG: {fileID: 2539006302971500247}
-  sceneCameras: []
   _primaryColor: {r: 0, g: 0, b: 0, a: 1}
   _secondaryColor: {r: 0, g: 0, b: 0, a: 1}
   _tertiaryColor: {r: 0, g: 0, b: 0, a: 1}
+  sceneCameras: []
 --- !u!114 &3102320528193038990
 MonoBehaviour:
   m_ObjectHideFlags: 0

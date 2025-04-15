@@ -40,7 +40,7 @@ namespace UTool.TabSystem
         [HideInInspector] public TabContent content;
 
         private string fileName => $"{tabName}Config.json";
-        private string filePath => $@"{UT.configDataPath}\{fileName}";
+        private string filePath => $@"{UT.dataPath}\TabConfigData\{fileName}";
 
         //[Button]
         //private void UpdateTabVariableData()

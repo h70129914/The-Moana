@@ -14,6 +14,9 @@ namespace UTool.Utility
         public static byte[] ToUTF8(this string stringData) => Encoding.UTF8.GetBytes(stringData);
         public static string ToUTF8String(this byte[] UTF8Data) => Encoding.UTF8.GetString(UTF8Data);
 
+        public static string ToBase64(this byte[] Base64Data) => Convert.ToBase64String(Base64Data);
+        public static byte[] ToBase64Byte(this string stringData) => Convert.FromBase64String(stringData);
+
         public static string GetLocalIPAddress()
         {
             string localIpAddress = "127.0.0.1";

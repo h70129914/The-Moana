@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -63,8 +64,8 @@ namespace UTool.TabSystem
         private bool isVector2Var => variableType == TabVariableType.Vector2;
         private bool isTriggerVar => variableType == TabVariableType.Trigger;
 
-        [JsonIgnore][HideInInspector] public TabFieldAttribute tabFieldAttribute;
-        [JsonIgnore][HideInInspector] public TabButtonAttribute tabButtonAttribute;
+        [JsonIgnore][HideInInspector] public List<TabFieldAttribute> tabFieldAttributes = new List<TabFieldAttribute>();
+        [JsonIgnore][HideInInspector] public List<TabButtonAttribute> tabButtonAttributes = new List<TabButtonAttribute>();
 
         public void StoreDefaultValue(object value)
         {
@@ -207,7 +208,7 @@ namespace UTool.TabSystem
         {
             OnValueUpdate?.Invoke(updateType, this);
 
-            if (tabFieldAttribute != null)
+            foreach (TabFieldAttribute tabFieldAttribute in tabFieldAttributes)
                 tabFieldAttribute.UpdateValue(GetValue(), updateType);
         }
 
@@ -215,7 +216,7 @@ namespace UTool.TabSystem
         {
             OnValueTrigger?.Invoke();
 
-            if (tabButtonAttribute != null)
+            foreach (TabButtonAttribute tabButtonAttribute in tabButtonAttributes)
                 tabButtonAttribute.Trigger();
         }
     }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace RTLTMPro
 {
@@ -41,9 +42,10 @@ namespace RTLTMPro
         /// <param name="preserveNumbers"></param>
         /// <param name="farsi"></param>
         /// <returns></returns>
-        public static void Fix(FastStringBuilder input, FastStringBuilder output, bool preserveNumbers, bool farsi, bool fixTextTags)
+        public static void Fix(FastStringBuilder input, FastStringBuilder output, bool preserveNumbers, bool farsi, bool fixTextTags, bool fixYah = true, bool preserveLeftOverLetter = false)
         {
-            FixYah(input, farsi);
+            if (fixYah)
+                FixYah(input, farsi);
 
             output.SetValue(input);
 
@@ -77,15 +79,19 @@ namespace RTLTMPro
                     if (IsMiddleLetter(input, i))
                     {
                         output.Set(i, (char)(converted + 3));
-                    } else if (IsFinishingLetter(input, i))
+                    }
+                    else if (IsFinishingLetter(input, i))
                     {
                         output.Set(i, (char)(converted + 1));
-                    } else if (IsLeadingLetter(input, i))
+                    }
+                    else if (IsLeadingLetter(input, i))
                     {
                         output.Set(i, (char)(converted + 2));
-                    } else
+                    }
+                    else
                     {
-                        output.Set(i, (char)converted);
+                        if (preserveLeftOverLetter)
+                            output.Set(i, (char)converted);
                     }
                 }
 

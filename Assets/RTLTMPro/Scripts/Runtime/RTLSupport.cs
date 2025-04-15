@@ -30,12 +30,14 @@ namespace RTLTMPro
             FastStringBuilder output,
             bool farsi = true,
             bool fixTextTags = true,
-            bool preserveNumbers = false)
+            bool preserveNumbers = false,
+            bool fixYah = true,
+            bool preserveLeftOverLetter = false)
         {
             inputBuilder.SetValue(input);
             TashkeelFixer.RemoveTashkeel(inputBuilder);
             // The shape of the letters in shapeFixedLetters is fixed according to their position in word. But the flow of the text is not fixed.
-            GlyphFixer.Fix(inputBuilder, glyphFixerOutput, preserveNumbers, farsi, fixTextTags);
+            GlyphFixer.Fix(inputBuilder, glyphFixerOutput, preserveNumbers, farsi, fixTextTags, fixYah, preserveLeftOverLetter);
             //Restore tashkeel to their places.
             TashkeelFixer.RestoreTashkeel(glyphFixerOutput);
             
