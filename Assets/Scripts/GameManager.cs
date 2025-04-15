@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     public DrumSpawner drumSpawner;
     public UIFlowController main;
+    public UIFlowController touch;
     public float gameTime = 60f;
     private float currentTime;
 
@@ -34,7 +35,7 @@ public class GameManager : MonoBehaviour
         End
     }
 
-    public GameState CurrentGameState { get; private set; } = GameState.Playing;
+    public GameState CurrentGameState { get; private set; } = GameState.Idle;
 
     void Awake()
     {
@@ -63,7 +64,7 @@ public class GameManager : MonoBehaviour
 
         if (currentTime <= 0)
         {
-            EndGame();
+            EndGame(endGameWaitTime);
         }
     }
 
@@ -84,6 +85,7 @@ public class GameManager : MonoBehaviour
     {
         CurrentGameState = GameState.GetReady;
         main.ShowNext();
+        touch.ShowNext();
 
         yield return StartCoroutine(Countdown());
 
@@ -141,8 +143,11 @@ public class GameManager : MonoBehaviour
         OnScoreUpdated?.Invoke();
     }
 
-    void EndGame()
+    public void EndGame(float waitBeforeEnd)
     {
+        if (CurrentGameState != GameState.Playing)
+            return;
+
         CurrentGameState = GameState.End;
 
         timerText.text = "0";
@@ -156,13 +161,14 @@ public class GameManager : MonoBehaviour
         FindFirstObjectByType<DrumSpawner>().StopSpawningAndClear();
         FindFirstObjectByType<LeaderboardController>().ShowLeaderboard();
 
-        StartCoroutine(EndGameRoutine());
+        StartCoroutine(EndGameRoutine(waitBeforeEnd));
     }
 
-    private IEnumerator EndGameRoutine()
+    private IEnumerator EndGameRoutine(float waitBeforeEnd)
     {
-        yield return new WaitForSeconds(endGameWaitTime);
+        yield return new WaitForSeconds(waitBeforeEnd);
         main.JumpTo(0);
+        touch.JumpTo(0);
         CurrentGameState = GameState.Idle;
     }
 

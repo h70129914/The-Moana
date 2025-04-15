@@ -21,7 +21,6 @@ public class DrumSpawner : MonoBehaviour
     private void Start()
     {
         totalGameDuration = GameManager.Instance.gameTime;
-        StartSpawning();
     }
 
     public void StartSpawning()
@@ -106,7 +105,7 @@ public class DrumSpawner : MonoBehaviour
     {
         if (spawnLoopCoroutine != null)
         {
-            StopCoroutine(spawnLoopCoroutine);
+            StopAllCoroutines();
             spawnLoopCoroutine = null;
         }
 
