@@ -11,8 +11,10 @@ public class DrumSpawner : MonoBehaviour
 
     public float spawnY = 10f;
     public float fallSpeed = 2;
-    public float perfectY;
-    public float totalGameDuration { get; set; }
+
+    public List<Transform> drumTargets = new List<Transform>();
+
+    public float TotalGameDuration { get; set; }
 
     public List<float> drumKeyframes = new() {
         0.4596f, 2.5580f, 2.8895f, 3.4343f, 4.8074f, 5.2611f, 8.4830f, 8.9325f, 9.3691f, 12.0119f,
@@ -24,7 +26,7 @@ public class DrumSpawner : MonoBehaviour
 
     private void Start()
     {
-        totalGameDuration = GameManager.Instance.gameTime;
+        TotalGameDuration = GameManager.Instance.gameTime;
     }
 
     public void StartSpawning()
@@ -41,7 +43,7 @@ public class DrumSpawner : MonoBehaviour
         float loopDuration = musicSource.clip.length;
         float elapsedTime = 0f;
 
-        while (elapsedTime < totalGameDuration)
+        while (elapsedTime < TotalGameDuration)
         {
             foreach (float hitTime in drumKeyframes)
             {
@@ -65,7 +67,7 @@ public class DrumSpawner : MonoBehaviour
 
     private float CalculateFallDuration()
     {
-        float fallDistance = Mathf.Abs(spawnY - perfectY);
+        float fallDistance = Mathf.Abs(spawnY - drumTargets[0].position.y);
         float duration = fallDistance / fallSpeed;
 
         Debug.Log($"Calculated fall duration: {duration} seconds");
@@ -97,7 +99,7 @@ public class DrumSpawner : MonoBehaviour
 
         Vector3 spawnPosition = new(spawnPositions[columnIndex].position.x, startY, 0);
         Drum drum = Instantiate(drumPrefab, spawnPosition, Quaternion.identity);
-        drum.Initialize(fallSpeed, perfectY, columnIndex);
+        drum.Initialize(fallSpeed, drumTargets[columnIndex], columnIndex);
         Debug.Log($"Drum spawned in column {columnIndex} at position {spawnPosition}.");
     }
 

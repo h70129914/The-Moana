@@ -4,8 +4,9 @@ using UnityEngine;
 public class DrumManager : MonoBehaviour
 {
     public static DrumManager Instance;
+    
 
-    private Dictionary<int, Queue<Drum>> columnDrums = new();
+    private readonly Dictionary<int, Queue<Drum>> columnDrums = new();
 
     void Awake()
     {
