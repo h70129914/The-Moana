@@ -1,9 +1,17 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerNameInput : MonoBehaviour
 {
     public TMP_InputField nameInput;
+    public Button registerButton;
+
+    private void Start()
+    {
+        nameInput.onValueChanged.AddListener(OnNameInputValueChanged);
+        registerButton.interactable = false;
+    }
 
     public void OnSubmitName()
     {
@@ -11,5 +19,10 @@ public class PlayerNameInput : MonoBehaviour
         if (string.IsNullOrEmpty(playerName)) return;
 
         GameManager.Instance.RegisterPlayer(playerName);
+    }
+
+    private void OnNameInputValueChanged(string input)
+    {
+        registerButton.interactable = !string.IsNullOrEmpty(input.Trim());
     }
 }
