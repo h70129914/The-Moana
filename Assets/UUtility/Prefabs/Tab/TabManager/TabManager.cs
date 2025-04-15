@@ -43,9 +43,9 @@ namespace UTool.TabSystem
         {
             _instance = this;
 
-            //GloTrack.Start("GetTabReferences");
+            //UTrack.Start("GetTabReferences");
             SetupTabs();
-            //GloTrack.Stop("GetTabReferences");
+            //UTrack.Stop("GetTabReferences");
         }
 
         public void MidAwake()
@@ -159,7 +159,7 @@ namespace UTool.TabSystem
             List<HasTabFieldAttribute> newAtt = new List<HasTabFieldAttribute>();
             foreach (Type currentType in tabFieldClassTypes)
             {
-                object[] tabFieldClasses = GameObject.FindObjectsOfType(currentType, includeInactive: true);
+                object[] tabFieldClasses = GameObject.FindObjectsByType(currentType, FindObjectsInactive.Include, FindObjectsSortMode.InstanceID);
                 foreach (object tabFieldClass in tabFieldClasses)
                 {
                     HasTabFieldAttribute attr = tabFieldClass.GetType().GetCustomAttribute<HasTabFieldAttribute>(false);
@@ -198,17 +198,24 @@ namespace UTool.TabSystem
                     Tab tab = GetAttributeTab(tabName);
                     string variableName = attr.variableName;
 
-                    if (CheckForDupicateBlinding(tab, variableName))
-                        continue;
+                    TVariable tVariable;
 
-                    TVariable tVariable = CreateAttributeControlledTVariable();
+                    if (CheckForDupicateBlinding(tab, variableName, out tVariable))
+                    {
+                        tVariable.tabFieldAttributes.Add(attr);
+                    }
+                    else
+                    {
+                        tVariable = CreateAttributeControlledTVariable();
 
-                    tVariable.attVariableName = variableName;
-                    tVariable.variableType = attr.variableType;
-                    tVariable.StoreDefaultValue(attr.defaultValue);
-                    tVariable.tabFieldAttribute = attr;
+                        tVariable.attVariableName = variableName;
+                        tVariable.variableType = attr.variableType;
+                        tVariable.StoreDefaultValue(attr.defaultValue);
+                        tVariable.tabFieldAttributes = new List<TabFieldAttribute>() { attr };
 
-                    tab.tabVariables.Add(tVariable);
+                        tab.tabVariables.Add(tVariable);
+                    }
+
                     attr.tVariable = tVariable;
                 }
 
@@ -223,16 +230,23 @@ namespace UTool.TabSystem
 
                     Tab tab = GetAttributeTab(tabName);
 
-                    if (CheckForDupicateBlinding(tab, attr.variableName))
-                        continue;
+                    TVariable tVariable;
 
-                    TVariable tVariable = CreateAttributeControlledTVariable();
+                    if (CheckForDupicateBlinding(tab, attr.variableName, out tVariable))
+                    {
+                        tVariable.tabButtonAttributes.Add(attr);
+                    }
+                    else
+                    {
+                        tVariable = CreateAttributeControlledTVariable();
 
-                    tVariable.attVariableName = attr.variableName;
-                    tVariable.variableType = attr.variableType;
-                    tVariable.tabButtonAttribute = attr;
+                        tVariable.attVariableName = attr.variableName;
+                        tVariable.variableType = attr.variableType;
+                        tVariable.tabButtonAttributes = new List<TabButtonAttribute>() { attr };
 
-                    tab.tabVariables.Add(tVariable);
+                        tab.tabVariables.Add(tVariable);
+                    }
+
                     attr.tVariable = tVariable;
                 }
             }
@@ -249,12 +263,12 @@ namespace UTool.TabSystem
                 return tab;
             }
 
-            bool CheckForDupicateBlinding(Tab tab, string variableName)
+            bool CheckForDupicateBlinding(Tab tab, string variableName, out TVariable tVariable)
             {
-                TVariable tVariable = tab.tabVariables.Find(x => x.variableName == variableName);
+                tVariable = tab.tabVariables.Find(x => x.variableName == variableName);
                 if (tVariable != null)
                 {
-                    Debug.LogWarning($"TabManger - Blinding Attribute Warning - Dupicate Not Fully Supported TVariables : '{tVariable.variableName}'");
+                    //Debug.LogWarning($"TabManger - Blinding Attribute Warning - Dupicate Not Fully Supported TVariables : '{tVariable.variableName}'");
                     return true;
                 }
 

@@ -17,11 +17,10 @@ namespace UTool
         public static readonly string devProjectName = "UUtility";
         public static string projectName = "EmptyProjectName";
 
-        public static string workingPath => $@"{System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments)}\Purpleglo";
-        public static string environmentDataPath => $@"{workingPath}\Software\{(isUUtilityProject ? devProjectName : projectName)}";
+        public static string workingPath => $@"{System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments)}\UTool";
+        public static string environmentDataPath => $@"{workingPath}\Softwares\{(isUUtilityProject ? devProjectName : projectName)}";
         public static string dataPath => isAndroidPlatform ? $@"{Application.persistentDataPath}\{projectName}" : environmentDataPath;
-        public static string configDataPath => $@"{dataPath}\ConfigData";
-        public static string tempDataPath => $@"{(isAndroidPlatform? Application.persistentDataPath : workingPath)}\Temp";
+        public static string tempDataPath => $@"{(isAndroidPlatform? Application.persistentDataPath : workingPath)}\temp";
 
         public static bool isUUtilityProject => Application.productName == devProjectName;
         public static bool isStandardProject => !isUUtilityProject;
@@ -64,7 +63,7 @@ namespace UTool
 
         [SpaceArea]
 
-        [SerializeField][ReorderableList(Foldable = true)] public List<Camera> sceneCameras = new List<Camera>();
+        [SerializeField][ReorderableList] public List<Camera> sceneCameras = new List<Camera>();
 
 
         bool isToolPanelOpen = false;

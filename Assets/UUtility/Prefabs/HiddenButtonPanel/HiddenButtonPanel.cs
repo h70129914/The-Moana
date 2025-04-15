@@ -8,7 +8,6 @@ using DG.Tweening;
 using UTool.Utility;
 
 using static RingImage;
-using System.Xml;
 
 public class HiddenButtonPanel : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -22,7 +21,7 @@ public class HiddenButtonPanel : MonoBehaviour, IPointerDownHandler, IPointerUpH
     [SpaceArea]
     [SerializeField]
     [LabelByChild("option")]
-    [ReorderableList(Foldable = true)] private List<ButtonOptionCtrl> buttonOptions = new List<ButtonOptionCtrl>();
+    [ReorderableList] private List<ButtonOptionCtrl> buttonOptions = new List<ButtonOptionCtrl>();
     [SpaceArea]
     [SerializeField][Disable][IgnoreParent] private ButtonOptionCtrl latestBOC;
     private

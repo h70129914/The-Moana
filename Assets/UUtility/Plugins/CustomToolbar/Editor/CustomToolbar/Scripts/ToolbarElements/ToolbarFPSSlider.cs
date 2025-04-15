@@ -8,21 +8,21 @@ using UnityEditor;
 internal class ToolbarFPSSlider : BaseToolbarElement {
 	[SerializeField] int minFPS = 1;
 	[SerializeField] int maxFPS = 120;
-	[SerializeField] int defaultFPS = 60;
 
-    int selectedFramerate;
+	int selectedFramerate;
 
 	public override string NameInList => "[Slider] FPS";
+	public override int SortingGroup => 1;
 
 	public override void Init() {
-		selectedFramerate = defaultFPS;
-	}
+		if (selectedFramerate == 0)
+			selectedFramerate = 60;
+    }
 
-	public ToolbarFPSSlider(int minFPS = 1, int maxFPS = 120, int defaultFPS = 60) : base(200) {
+	public ToolbarFPSSlider(int minFPS = 1, int maxFPS = 120) : base(200) {
 		this.minFPS = minFPS;
 		this.maxFPS = maxFPS;
-		this.defaultFPS = defaultFPS;
-    }
+	}
 
 	protected override void OnDrawInList(Rect position) {
 		position.width = 70.0f;
@@ -39,19 +39,10 @@ internal class ToolbarFPSSlider : BaseToolbarElement {
 		position.x += position.width + FieldSizeSpace;
 		position.width = 50.0f;
 		maxFPS = Mathf.RoundToInt(EditorGUI.IntField(position, "", maxFPS));
-
-        position.x += position.width + FieldSizeSpace;
-        position.width = 70.0f;
-        EditorGUI.LabelField(position, "Default FPS");
-
-        position.x += position.width + FieldSizeSpace;
-        position.width = 50.0f;
-        defaultFPS = Mathf.RoundToInt(EditorGUI.IntField(position, "", defaultFPS));
-    }
+	}
 
 	protected override void OnDrawInToolbar() {
 		EditorGUILayout.LabelField("FPS", GUILayout.Width(30));
-		defaultFPS = EditorGUILayout.IntField(defaultFPS, GUILayout.Width(30f));
 		selectedFramerate = EditorGUILayout.IntSlider("", selectedFramerate, minFPS, maxFPS, GUILayout.Width(WidthInToolbar - 30.0f));
 		if (EditorApplication.isPlaying && selectedFramerate != Application.targetFrameRate)
 			Application.targetFrameRate = selectedFramerate;

@@ -10,6 +10,8 @@ namespace UTool.Utility
             return (Mathf.Abs(a - b) < treshold);
         }
 
+        public static float Invert(this float value, float maxValue = 1f) => value.RangedMapUnClamp(0f, maxValue, maxValue, 0f);
+
         public static float RangedMapUnClamp(this float value, float InMinimum, float InMaximum, float OutMinimum, float OutMaximum, bool clampMin = false, bool clampMax = false)
         {
             var InRange = InMaximum - InMinimum;
@@ -72,6 +74,21 @@ namespace UTool.Utility
                 value = max;
 
             return value;
+        }
+
+        ///https://github.com/ManeFunction/unity-mane/tree/master
+        /// <summary>
+        /// Truncates a float value to a specified number of decimal places.
+        /// </summary>
+        /// <param name="value">The float value to truncate.</param>
+        /// <param name="tail">The number of decimal places to keep.</param>
+        /// <returns>The truncated float value.</returns>
+        public static float Cut(this float value, int tail)
+        {
+            float t = Mathf.Pow(10, tail);
+            int intValue = (int)(value * t);
+
+            return intValue / t;
         }
 
         public static Vector2Int Round(this Vector2 vector)

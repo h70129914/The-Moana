@@ -2,11 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-#if TMP_VERSION_2_1_0_OR_NEWER || UNITY_6000_0_OR_NEWER
 using TMP_UiEditorPanel = TMPro.EditorUtilities.TMP_EditorPanelUI;
-#else
-using TMP_UiEditorPanel = TMPro.EditorUtilities.TMP_UiEditorPanel;
-#endif
 
 namespace RTLTMPro
 {
@@ -18,6 +14,8 @@ namespace RTLTMPro
         private SerializedProperty farsiProp;
         private SerializedProperty fixTagsProp;
         private SerializedProperty forceFixProp;
+        private SerializedProperty fixYahProp;
+        private SerializedProperty preserveLeftOverLetterProp;
 
         private bool foldout;
         private RTLTextMeshPro tmpro;
@@ -31,6 +29,8 @@ namespace RTLTMPro
             fixTagsProp = serializedObject.FindProperty("fixTags");
             forceFixProp = serializedObject.FindProperty("forceFix");
             originalTextProp = serializedObject.FindProperty("originalText");
+            fixYahProp = serializedObject.FindProperty("fixYah");
+            preserveLeftOverLetterProp = serializedObject.FindProperty("preserveLeftOverLetter");
         }
 
         public override void OnInspectorGUI()
@@ -89,6 +89,14 @@ namespace RTLTMPro
             if (tmpro.richText)
                 fixTagsProp.boolValue = GUILayout.Toggle(fixTagsProp.boolValue, new GUIContent("FixTags"));
 
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal();
+            EditorGUI.BeginChangeCheck();
+
+            fixYahProp.boolValue = GUILayout.Toggle(fixYahProp.boolValue, new GUIContent("Fix Yah"));
+            preserveLeftOverLetterProp.boolValue = GUILayout.Toggle(preserveLeftOverLetterProp.boolValue, new GUIContent("Preserve Leftover Letter"));
+            
             EditorGUILayout.EndHorizontal();
         }
 

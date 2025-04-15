@@ -60,9 +60,8 @@ namespace UTool.Tweening
 
         [SpaceArea]
 
-        [SerializeField]
-        [ReorderableList(Foldable = true)]
-        public List<TweenElement> tweenElementChilds = new List<TweenElement>();
+        [EditorButton(nameof(GetChildTweenElement), activityType: ButtonActivityType.OnEditMode)]
+        [SerializeField][ReorderableList(Foldable = true)] public List<TweenElement> tweenElementChilds = new List<TweenElement>();
 
         [SpaceArea]
 
@@ -102,6 +101,30 @@ namespace UTool.Tweening
         private bool latestRequestState;
 
         private List<Action> onCompleteCallbacks = new List<Action>();
+
+        private void GetChildTweenElement()
+        {
+            List<TweenElement> teS = new List<TweenElement>();
+
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                Transform t = transform.GetChild(i);
+                if (!t.gameObject.activeSelf)
+                    continue;
+
+                TweenElement te = t.gameObject.GetComponent<TweenElement>();
+
+                if (!te)
+                    return;
+
+                teS.Add(te);
+            }
+
+            teS = teS.Where(x => !tweenElementChilds.Contains(x)).ToList();
+            tweenElementChilds.AddRange(teS);
+
+            this.RecordPrefabChanges();
+        }
 
         private void FillUsingTweenElementChilds()
         {
@@ -196,6 +219,14 @@ namespace UTool.Tweening
 
                 case AutoStartTween.Reverse:
                     ReverseTween();
+                    break;
+
+                case AutoStartTween.PlayInstant:
+                    PlayTween(instant: true);
+                    break;
+
+                case AutoStartTween.ReverseInstant:
+                    ReverseTween(instant: true);
                     break;
 
                 default:
@@ -354,6 +385,8 @@ namespace UTool.Tweening
                 foreach (TweenProperty tweenProperty in tweenPropertyList.Where(x => x.playbackState != playbackState))
                     if (tweenProperty.playbackState == PlaybackState.Ready)
                         tweenProperty.Show(playbackState == PlaybackState.Playing, true);
+
+                OnComplete?.Invoke();
 
                 return;
             }
@@ -826,7 +859,9 @@ namespace UTool.Tweening
     {
         Disabled,
         Play,
-        Reverse
+        Reverse,
+        PlayInstant,
+        ReverseInstant
     }
 
     public enum LoopMode

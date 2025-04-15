@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace RTLTMPro
 {
-    [ExecuteInEditMode]
+    [ExecuteAlways]
     public class RTLTextMeshPro : TextMeshProUGUI
     {
         // ReSharper disable once InconsistentNaming
@@ -82,6 +82,32 @@ namespace RTLTMPro
             }
         }
 
+        public bool FixYah
+        {
+            get { return fixYah; }
+            set
+            {
+                if (fixYah == value)
+                    return;
+
+                fixYah = value;
+                havePropertiesChanged = true;
+            }
+        }
+
+        public bool PreserveLeftOverLetter
+        {
+            get { return preserveLeftOverLetter; }
+            set
+            {
+                if (preserveLeftOverLetter == value)
+                    return;
+
+                preserveLeftOverLetter = value;
+                havePropertiesChanged = true;
+            }
+        }
+
         [SerializeField] protected bool preserveNumbers;
 
         [SerializeField] protected bool farsi = true;
@@ -91,6 +117,10 @@ namespace RTLTMPro
         [SerializeField] protected bool fixTags = true;
 
         [SerializeField] protected bool forceFix;
+
+        [SerializeField] protected bool fixYah = true;
+
+        [SerializeField] protected bool preserveLeftOverLetter = false;
 
         protected readonly FastStringBuilder finalText = new FastStringBuilder(RTLSupport.DefaultBufferSize);
 
@@ -126,7 +156,7 @@ namespace RTLTMPro
                 return input;
 
             finalText.Clear();
-            RTLSupport.FixRTL(input, finalText, farsi, fixTags, preserveNumbers);
+            RTLSupport.FixRTL(input, finalText, farsi, fixTags, preserveNumbers, fixYah, preserveLeftOverLetter);
             finalText.Reverse();
             return finalText.ToString();
         }
