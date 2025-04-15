@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Drum : MonoBehaviour
@@ -18,13 +19,11 @@ public class Drum : MonoBehaviour
 
     private GameObject GetEffect(float distance)
     {
-        if (distance > 1)
-            return effects[4];
-        else if (distance > 0.8f)
+        if (distance > 0.75f)
             return effects[3];
-        else if (distance > 0.6f)
+        else if (distance > 0.5f)
             return effects[2];
-        else if (distance > 0.4f)
+        else if (distance > 0.25f)
             return effects[1];
         else
             return effects[0];
@@ -51,6 +50,7 @@ public class Drum : MonoBehaviour
 
         if (transform.position.y <= -6)
         {
+            ShowEffect(-1);
             active = false;
             DrumManager.Instance.PopDrum(ColumnIndex);
             Destroy(gameObject);
@@ -66,28 +66,33 @@ public class Drum : MonoBehaviour
         DrumManager.Instance.PopDrum(ColumnIndex);
         Destroy(gameObject);
 
-        GameObject effect = GetEffect(distance);
-        if (effect != null)
+        ShowEffect(distance);
+
+        Vector3 originalPosition = perfect.position;
+        perfect.DOShakePosition(0.5f, 0.5f, 10, 90, false, true).OnComplete(() =>
         {
-            Vector3 randomOffset = new(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
-            Quaternion randomRotation = Quaternion.Euler(0, 0, 30);
+            perfect.position = originalPosition;
+        });
+    }
 
-            GameObject instantiatedEffect = Instantiate(effect, perfect.position + randomOffset, randomRotation);
-            instantiatedEffect.transform.localScale = Vector3.zero;
-            instantiatedEffect.transform.DOScale(0.3f, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
-            {
-                instantiatedEffect.transform.DOScale(0.4f, 0.5f).SetEase(Ease.InBounce).OnComplete(() =>
-                {
-                    Destroy(instantiatedEffect);
-                });
-            });
+    private void ShowEffect(float distance)
+    {
+        GameObject effect = (distance < 0) ? effects[4] : GetEffect(distance);
+        if (effect == null)
+            return;
 
-            Vector3 originalPosition = perfect.position;
-            perfect.DOShakePosition(0.5f, 0.5f, 10, 90, false, true).OnComplete(() =>
+        Vector3 randomOffset = new(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
+        Quaternion randomRotation = Quaternion.Euler(0, 0, 30);
+
+        GameObject instantiatedEffect = Instantiate(effect, perfect.position + randomOffset, randomRotation);
+        instantiatedEffect.transform.localScale = Vector3.zero;
+        instantiatedEffect.transform.DOScale(0.3f, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
+        {
+            instantiatedEffect.transform.DOScale(0.4f, 0.5f).SetEase(Ease.InBounce).OnComplete(() =>
             {
-                perfect.position = originalPosition;
+                Destroy(instantiatedEffect);
             });
-        }
+        });
     }
 
     private int CalculateScore(float distance)
