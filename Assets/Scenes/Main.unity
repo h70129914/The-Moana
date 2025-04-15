@@ -782,7 +782,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &622327675
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2662,10 +2662,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drumSpawner: {fileID: 1932436473}
   main: {fileID: 1787324732}
-  gameTime: 20
+  gameTime: 35
   timerText: {fileID: 1234462478}
   scoreText: {fileID: 1978262745}
   countdownText: {fileID: 801926935}
+  endGameWaitTime: 5
 --- !u!4 &1381527261
 Transform:
   m_ObjectHideFlags: 0
@@ -3201,7 +3202,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1787324727}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1741701edeefbdd44ae9acc021356659, type: 3}
   m_Name: 
@@ -3229,7 +3230,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1821764255
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3414,13 +3415,11 @@ MonoBehaviour:
   fallSpeed: 2
   perfectY: -3.9
   drumKeyframes:
-  - 0
-  - 2.4
-  - 8.4
-  - 12
-  - 17.5
-  - 19
-  - 26.8
+  - 0.25
+  - 2.5
+  - 8.6
+  - 12.2
+  - 13.5
 --- !u!4 &1932436474
 Transform:
   m_ObjectHideFlags: 0
@@ -3627,9 +3626,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1787324732}
-        m_TargetAssemblyTypeName: UIFlowController, Assembly-CSharp
-        m_MethodName: ShowNext
+      - m_Target: {fileID: 1381527260}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: NameSubmit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -21,6 +21,7 @@ public class DrumSpawner : MonoBehaviour
     private void Start()
     {
         totalGameDuration = GameManager.Instance.gameTime;
+        StartSpawning();
     }
 
     public void StartSpawning()

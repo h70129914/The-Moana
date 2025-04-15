@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         End
     }
 
-    public GameState CurrentGameState { get; private set; } = GameState.Idle;
+    public GameState CurrentGameState { get; private set; } = GameState.Playing;
 
     void Awake()
     {
