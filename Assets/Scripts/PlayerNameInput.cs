@@ -19,6 +19,7 @@ public class PlayerNameInput : MonoBehaviour
         if (string.IsNullOrEmpty(playerName)) return;
 
         GameManager.Instance.RegisterPlayer(playerName);
+        nameInput.text = string.Empty;
     }
 
     private void OnNameInputValueChanged(string input)
