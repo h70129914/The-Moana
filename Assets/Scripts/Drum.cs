@@ -2,14 +2,15 @@ using UnityEngine;
 
 public class Drum : MonoBehaviour
 {
-    public int ColumnIndex { get; set; }
-    public float perfectY = -3f;
     public int _score = 10;
 
     private float speed;
+    private float perfectY = -3f;
 
     private bool active = false;
     private float maxDistance = 1f;
+
+    public int ColumnIndex { get; set; }
 
     void Start()
     {
@@ -18,9 +19,9 @@ public class Drum : MonoBehaviour
 
     public void Initialize(float fallSpeed, float targetY, int index)
     {
-        this.speed = fallSpeed;
-
-        this.ColumnIndex = index;
+        speed = fallSpeed;
+        perfectY = targetY;
+        ColumnIndex = index;
         active = true;
     }
 
