@@ -5751,7 +5751,6 @@ MonoBehaviour:
   timerText: {fileID: 1234462478}
   scoreText: {fileID: 1978262745}
   countdownText: {fileID: 801926935}
-  endGameWaitTime: 5
 --- !u!4 &1381527261
 Transform:
   m_ObjectHideFlags: 0
@@ -6354,7 +6353,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1627807659}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9839c2d141529145a431aef4d757ff3, type: 3}
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -6367,15 +6366,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0caad75cb1ddec44aaef9a21f6609bca, type: 2}
-  m_sharedMaterial: {fileID: -6389699872309020586, guid: 0caad75cb1ddec44aaef9a21f6609bca, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7918932f5094b36489b2cfae66d6fca7, type: 2}
+  m_sharedMaterial: {fileID: -7819940848530102405, guid: 7918932f5094b36489b2cfae66d6fca7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4289283086
-  m_fontColor: {r: 0.054901965, g: 0.26666668, b: 0.6627451, a: 1}
+  m_fontColor: {r: 0.05490196, g: 0.26666668, b: 0.6627451, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6392,15 +6391,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.33
-  m_fontSizeBase: 40.33
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 4096
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -6413,7 +6412,7 @@ MonoBehaviour:
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
+  m_enableKerning: 0
   m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
@@ -6436,13 +6435,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
-  preserveNumbers: 0
-  farsi: 0
-  originalText: "\u200B"
-  fixTags: 1
-  forceFix: 0
-  fixYah: 1
-  preserveLeftOverLetter: 0
 --- !u!1 &1650132686
 GameObject:
   m_ObjectHideFlags: 0
@@ -8310,8 +8302,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1381527260}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: EndGame
-        m_Mode: 4
+        m_MethodName: ResetGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8582,7 +8574,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 14
-  m_CharacterLimit: 0
+  m_CharacterLimit: 10
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -8953,8 +8945,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 1
-  m_CellSize: {x: 300, y: 50}
-  m_Spacing: {x: 359.2, y: 0}
+  m_CellSize: {x: 400, y: 50}
+  m_Spacing: {x: 260, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 5
 --- !u!1660057539 &9223372036854775807

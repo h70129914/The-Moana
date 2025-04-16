@@ -7,6 +7,13 @@ public class DrumManager : MonoBehaviour
     
 
     private readonly Dictionary<int, Queue<Drum>> columnDrums = new();
+    public void ResetDrums()
+    {
+        foreach (var column in columnDrums.Values)
+        {
+            column.Clear();
+        }
+    }
 
     void Awake()
     {

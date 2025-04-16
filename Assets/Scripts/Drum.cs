@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Drum : MonoBehaviour
@@ -57,6 +56,8 @@ public class Drum : MonoBehaviour
         }
     }
 
+    private static bool isShaking = false;
+
     public void TryCatch()
     {
         float distance = Mathf.Abs(transform.position.y - perfect.position.y);
@@ -68,11 +69,16 @@ public class Drum : MonoBehaviour
 
         ShowEffect(distance);
 
-        Vector3 originalPosition = perfect.position;
-        perfect.DOShakePosition(0.5f, 0.5f, 10, 90, false, true).OnComplete(() =>
+        if (!isShaking)
         {
-            perfect.position = originalPosition;
-        });
+            isShaking = true;
+            Vector3 originalPosition = perfect.position;
+            perfect.DOShakePosition(0.5f, 0.5f, 10, 90, false, true).OnComplete(() =>
+            {
+                perfect.position = originalPosition;
+                isShaking = false;
+            });
+        }
     }
 
     private void ShowEffect(float distance)

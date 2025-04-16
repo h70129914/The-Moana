@@ -25,8 +25,6 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI countdownText;
 
-    [SerializeField] private float endGameWaitTime = 5f;
-
     private const string ScoresFileName = "userScores.json";
 
     public enum GameState
@@ -68,7 +66,8 @@ public class GameManager : MonoBehaviour
 
         if (currentTime <= 0)
         {
-            EndGame(endGameWaitTime);
+            EndGame();
+            ShowLeaderboard();
         }
 
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L))
@@ -153,10 +152,21 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void EndGame(float waitBeforeEnd)
+    public void ResetGame() 
+    {
+        EndGame();
+
+        main.JumpTo(0);
+        touch.JumpTo(0);
+        CurrentGameState = GameState.Idle;
+    }
+
+    public void EndGame()
     {
         if (CurrentGameState != GameState.Playing)
+        {
             return;
+        }
 
         CurrentGameState = GameState.End;
 
@@ -168,19 +178,14 @@ public class GameManager : MonoBehaviour
             SaveScores();
         }
 
-        main.ShowNext();
+        DrumManager.Instance.ResetDrums();
         FindFirstObjectByType<DrumSpawner>().StopSpawningAndClear();
-        FindFirstObjectByType<LeaderboardController>().ShowLeaderboard();
-
-        StartCoroutine(EndGameRoutine(waitBeforeEnd));
     }
 
-    private IEnumerator EndGameRoutine(float waitBeforeEnd)
+    private void ShowLeaderboard()
     {
-        yield return new WaitForSeconds(waitBeforeEnd);
-        main.JumpTo(0);
-        touch.JumpTo(0);
-        CurrentGameState = GameState.Idle;
+        main.ShowNext();
+        FindFirstObjectByType<LeaderboardController>().ShowLeaderboard();
     }
 
     public bool IsGameStarted()
