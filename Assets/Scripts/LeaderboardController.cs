@@ -40,7 +40,7 @@ public class LeaderboardController : MonoBehaviour
         {
             GameObject leaderboardEntry = Instantiate(leaderboardTextPrefab, container);
             TextMeshProUGUI textComponent = leaderboardEntry.GetComponent<TextMeshProUGUI>();
-            textComponent.text = $"{index}. {score.Key}: {score.Value}";
+            textComponent.text = $"{index}. {score.Key}";
             index++;
         }
 
