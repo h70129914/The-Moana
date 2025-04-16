@@ -36,12 +36,19 @@ public class LeaderboardController : MonoBehaviour
         var orderedScores = scores.OrderByDescending(s => s.Value).Take(10);
         int index = 1;
 
-        foreach (var score in orderedScores)
+        for (int i = 0; i < 10; i++)
         {
             GameObject leaderboardEntry = Instantiate(leaderboardTextPrefab, container);
             TextMeshProUGUI textComponent = leaderboardEntry.GetComponent<TextMeshProUGUI>();
-            textComponent.text = $"{index}. {score.Key}";
-            index++;
+            if (i < orderedScores.Count())
+            {
+                var score = orderedScores.ElementAt(i);
+                textComponent.text = $"{i + 1}. {score.Key}";
+            }
+            else
+            {
+                textComponent.text = $"{i + 1}.";
+            }
         }
 
         finalScoreText.text = $"{GameManager.Instance.GetFinalScore()}";
