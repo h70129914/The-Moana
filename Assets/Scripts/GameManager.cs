@@ -59,6 +59,8 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(StartGame());
         }
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L))
+            MoveScoresFile();
         if (CurrentGameState != GameState.Playing) return;
 
         currentTime -= Time.deltaTime;
@@ -68,11 +70,6 @@ public class GameManager : MonoBehaviour
         {
             EndGame();
             ShowLeaderboard();
-        }
-
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L))
-        {
-            MoveScoresFile();
         }
     }
 
@@ -149,10 +146,10 @@ public class GameManager : MonoBehaviour
         }
 
         OnScoreUpdated?.Invoke();
-        
+
     }
 
-    public void ResetGame() 
+    public void ResetGame()
     {
         EndGame();
 
@@ -214,6 +211,7 @@ public class GameManager : MonoBehaviour
 
     private void MoveScoresFile()
     {
+        Debug.Log(Application.persistentDataPath);
         string filePath = Path.Combine(Application.persistentDataPath, ScoresFileName);
         if (File.Exists(filePath))
         {

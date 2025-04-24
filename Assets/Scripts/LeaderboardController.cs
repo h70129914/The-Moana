@@ -50,7 +50,6 @@ public class LeaderboardController : MonoBehaviour
                 textComponent.text = $"{i + 1}.";
             }
         }
-
         finalScoreText.text = $"{GameManager.Instance.GetFinalScore()}";
     }
 }
